@@ -6,7 +6,10 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const multiparty = require("multiparty");
 const { v4: uuidv4 } = require("uuid");
-// var dotenv = require("dotenv").config();
+const { stringify } = require("querystring");
+var dotenv = require("dotenv").config();
+
+var UPLOAD_PATH = path.resolve(__dirname, "..", process.env.IMG_STORAGE);
 
 const app = express();
 
@@ -21,7 +24,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", function (req, res, next) {
-  res.render("index", { title: "Image Uploader", img_field:"image" });
+  res.render("index", {
+    title: "Image Uploader",
+    img_field: process.env.IMG_FIELD,
+  });
 });
 
 app.post("/upload", function (req, res, next) {
@@ -29,12 +35,14 @@ app.post("/upload", function (req, res, next) {
   form.maxFilesSize = 15728640;
   var image;
   // const filename = uuidv4();
-  console.log(form);
+  // console.log(form);
   form.on("error", () => {
     console.log("error");
   });
   form.on("close", function () {
-    res.send(`Uploaded ${image.filename} as (${(image.size / 1024) | 0} KB)`);
+    res.send(
+      `<p>Uploaded ${image.filename} as (${(image.size / 1024) | 0} KB)</p>`
+    );
   });
 
   // listen on part event for image file

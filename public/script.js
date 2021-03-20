@@ -1,6 +1,6 @@
 let progressBar = document.getElementById("progress-bar");
 let dragArea = document.getElementById("dragArea");
-let image = document.getElementsByName("image");
+let FileInput = document.getElementById("fileInput");
 let form = document.querySelector("form");
 
 /* Event listeners */
@@ -34,22 +34,45 @@ function unhighlight(e) {
 }
 
 function handleDrop(e) {
+  // const dT = new DataTransfer();
+  // dT.items.add(e.dataTransfer.files[0]);
   let files = e.dataTransfer.files;
+  FileInput.files = files;
   handleFiles(files);
 }
 
 function handleFiles(files) {
-  // var formData = new FormData(form);
-  // formData.set("image", files[0]);
-  // formData.set("close", true);
-  // console.log(files[0]);
-  // image.value = files[0];
-  console.log(form);
-
-  // form.submit();
-
+  console.log(files, FileInput.files);
+  // let formData = new FormData(form);
+  // formData.set(image, files[0]);
+  // console.log(form)
+  form.submit();
+  // uploadFile(files[0]);
   // previewFile(files[0]);
   // files.forEach(uploadFile);
+}
+
+function uploadFile(file) {
+  let url = "http://localhost:3000/upload";
+  let formData = new FormData();
+
+  formData.append(image, file);
+  console.log(formData.get("image"));
+
+  fetch(url, {
+    method: "POST",
+    body: formData,
+  })
+    .then((req) => {
+      console.log(req);
+      return req.json();
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 // function previewFile(file) {
