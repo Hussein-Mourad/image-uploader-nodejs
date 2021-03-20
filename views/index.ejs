@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <form
+      action="/upload"
+      method="POST"
+      class="form"
+      enctype="multipart/form-data"
+    >
+      <div class="card">
+        <h1>Upload your image</h1>
+        <p>File should be Jpeg, Png, ...</p>
+        <div id="dragArea">
+          <input
+            type="file"
+            id="fileInput"
+            name="<%= img_field %>"
+            accept="image/*"
+            onchange="handleFiles(this.files)"
+          />
+          <img src="/image.svg" alt="mountain" />
+          <p>Drag & Drop your image here</p>
+        </div>
+        <p class="or">or</p>
+        <label class="btn" for="fileInput">Choose a file</label>
+      </div>
+    </form>
+
+    <!-- <div class="card">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="green"
+        width="32px"
+        height="32px"
+      >
+        <path d="M0 0h24v24H0V0z" fill="none" />
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.29 16.29L5.7 12.7c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L10 14.17l6.88-6.88c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-7.59 7.59c-.38.39-1.02.39-1.41 0z"
+        />
+      </svg>
+      <h1>Uploaded Successfully!</h1>
+      <div id="gallery"></div>
+
+      <form action="">
+        <div class="link-block">
+          <input type="text" name="link" id="link" value="hi" disabled />
+          <div class="btn">Copy link</div>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h1>Uploading...</h1>
+      <progress id="progress-bar" max="100" value="0"></progress>
+    </div> -->
+  </body>
+</html>
