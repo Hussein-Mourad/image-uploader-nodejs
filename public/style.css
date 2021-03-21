@@ -1,57 +1,73 @@
-:root {
-  --gray1: #bdbdbd;
-  --gray2: #4f4f4f;
-  --gray3: #828282;
-  --gray4: #f6f8fb;
-  --gray5: #333333;
-  --blue: #2f80ed;
-}
-
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+a {
+  color: #4f4f4f;
 }
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: whitesmoke;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 100vw;
   height: 100vh;
+}
+
+progress {
+  width: 200px;
 }
 
 .btn {
   padding: 0.6rem 0.8rem;
   cursor: pointer;
   color: white;
-  background-color: var(--blue);
+  background-color: #2f80ed;
   border: none;
   border-radius: 0.5rem;
-  box-shadow: 0px 3px 10px var(--gray1);
+  -webkit-box-shadow: 0px 3px 10px #bdbdbd;
+          box-shadow: 0px 3px 10px #bdbdbd;
 }
 
 .btn:hover {
   opacity: 90%;
 }
 
-
 .card {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: white;
   border-radius: 1rem;
   padding: 1.5rem 1rem;
-  box-shadow: 0px 10px 15px rgb(202, 202, 202);
-  color: var(--gray3);
+  -webkit-box-shadow: 0px 10px 15px #cacaca;
+          box-shadow: 0px 10px 15px #cacaca;
+  color: #828282;
 }
 
 .card h1 {
-  color: var(--gray2);
+  color: #4f4f4f;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
   font-size: 1.25rem;
@@ -64,10 +80,19 @@ body {
   border: 2px dashed #97bef4;
   border-radius: 0.5rem;
   background: #f6f8fb;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 18rem;
 }
 
@@ -75,12 +100,12 @@ body {
   margin-bottom: 1rem;
 }
 
-#dragArea.highlight {
-  background: #dceaff;
-}
-
 #dragArea img {
   margin: 1rem 0rem;
+}
+
+#dragArea .highlight {
+  background: #dceaff;
 }
 
 #dragArea #fileInput {
@@ -92,8 +117,13 @@ body {
 }
 
 #gallery {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 3rem;
 }
 
@@ -103,13 +133,47 @@ body {
 }
 
 .link-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  border: 1px solid var(--gray1);
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border: 1px solid #bdbdbd;
   border-radius: 0.5rem;
   padding: 0.25rem;
-  background: var(--gray4);
+  background: #f6f8fb;
 }
-.link-block input {
+
+.link-block .btn {
+  text-align: center;
+  width: 90px;
+}
+
+.btn.highlight {
+  background: #828282;
+}
+
+#link {
   border: none;
-  background:none;
+  background: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+#link:focus {
+  outline: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 5%;
+  color: #828282;
+}
+/*# sourceMappingURL=style.css.map */

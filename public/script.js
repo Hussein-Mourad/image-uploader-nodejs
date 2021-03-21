@@ -42,37 +42,30 @@ function handleDrop(e) {
 }
 
 function handleFiles(files) {
-  console.log(files, FileInput.files);
-  // let formData = new FormData(form);
-  // formData.set(image, files[0]);
-  // console.log(form)
   form.submit();
-  // uploadFile(files[0]);
-  // previewFile(files[0]);
-  // files.forEach(uploadFile);
 }
 
-function uploadFile(file) {
-  let url = "http://localhost:3000/upload";
-  let formData = new FormData();
+function copy() {
+  /* Get the text field */
+  var copyText = document.getElementById("link");
+  var copyBtn = document.getElementById("copy-btn");
 
-  formData.append(image, file);
-  console.log(formData.get("image"));
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
-  fetch(url, {
-    method: "POST",
-    body: formData,
-  })
-    .then((req) => {
-      console.log(req);
-      return req.json();
-    })
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+  window.getSelection().removeAllRanges();
+  document.getSelection().addRange(document.createRange());
+
+  copyBtn.innerText = "Copied!";
+  copyBtn.classList.add("highlight");
+  setTimeout(() => {
+    copyBtn.innerText = "Copy link";
+    copyBtn.classList.remove("highlight");
+    copyText.style.userSelect = "text";
+  }, 1000);
 }
 
 // function previewFile(file) {

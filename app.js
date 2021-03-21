@@ -7,9 +7,11 @@ const logger = require("morgan");
 const multiparty = require("multiparty");
 const { v4: uuidv4 } = require("uuid");
 const { stringify } = require("querystring");
-var dotenv = require("dotenv").config();
+const dotenv = require("dotenv").config();
 
-var UPLOAD_PATH = path.resolve(__dirname, "..", process.env.IMG_STORAGE);
+const UPLOAD_PATH = path.join(__dirname, process.env.IMG_STORAGE);
+
+const MAX_FILES = process.env.MAX_FILES;
 
 const app = express();
 
@@ -24,25 +26,32 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", function (req, res, next) {
+  fs.readdir(UPLOAD_PATH, (err, files) => {
+    if (files.length > MAX_FILES) {
+      for (file of files) {
+        fs.unlink(path.join(UPLOAD_PATH, file), (err) => {
+          if (err) throw err;
+        });
+      }
+    }
+  });
+
   res.render("index", {
     title: "Image Uploader",
     img_field: process.env.IMG_FIELD,
+    link: "gfhgfdhgfhfghgfhgfhghghgfgfhfghngfhgfhgfhgfhgfhgfhgf",
   });
 });
 
 app.post("/upload", function (req, res, next) {
-  var form = new multiparty.Form();
-  form.maxFilesSize = 15728640;
+  var form = new multiparty.Form({
+    maxFilesSize: 10 * 1024 * 1024,
+    uploadDir: UPLOAD_PATH,
+  }); //10 MB
   var image;
-  // const filename = uuidv4();
-  // console.log(form);
+
   form.on("error", () => {
     console.log("error");
-  });
-  form.on("close", function () {
-    res.send(
-      `<p>Uploaded ${image.filename} as (${(image.size / 1024) | 0} KB)</p>`
-    );
   });
 
   // listen on part event for image file
@@ -58,10 +67,27 @@ app.post("/upload", function (req, res, next) {
   });
 
   // parse the form
-  form.parse(req);
+  form.parse(req, function (err, fields, files) {
+    const id = files.image[0].path.replace(UPLOAD_PATH, "");
+    console.log(path.join(req.headers.host, "img/" + id));
+    res.render("results", {
+      title: "Image Uploader | Results",
+      link: path.join(req.headers.host, "img/" + id),
+      
+    });
+    // res.send(id);
+    // res.writeHead(200, { "content-type": "text/plain" });
+    // res.write("received upload:\n\n");
+    // res.end(util.inspect({ fields: fields, files: files }));
+  });
 });
 
-// app.get("/img/", function (req, res, next) {res.send("hi")});
+app.get("/img/:id", function (req, res, next) {
+  const id = req.params.id;
+  const filePath = path.join(UPLOAD_PATH, id);
+  console.log(filePath);
+  res.sendFile(filePath);
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
