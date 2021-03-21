@@ -24,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "uploads")));
 
 app.get("/", function (req, res, next) {
   fs.readdir(UPLOAD_PATH, (err, files) => {
@@ -68,12 +69,12 @@ app.post("/upload", function (req, res, next) {
 
   // parse the form
   form.parse(req, function (err, fields, files) {
-    const id = files.image[0].path.replace(UPLOAD_PATH, "");
-    console.log(path.join(req.headers.host, "img/" + id));
+    const filename = files.image[0].path.replace(UPLOAD_PATH, "");
+    console.log(path.join(req.headers.host, "img/" + filename));
     res.render("results", {
       title: "Image Uploader | Results",
-      link: path.join(req.headers.host, "img/" + id),
-      
+      link: path.join(req.headers.host, "img/" + filename),
+      filename: "/" + filename,
     });
     // res.send(id);
     // res.writeHead(200, { "content-type": "text/plain" });

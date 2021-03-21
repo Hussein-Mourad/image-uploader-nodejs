@@ -104,12 +104,12 @@ progress {
   margin: 1rem 0rem;
 }
 
-#dragArea .highlight {
-  background: #dceaff;
-}
-
 #dragArea #fileInput {
   display: none;
+}
+
+#dragArea.highlight {
+  background: #dceaff;
 }
 
 .or {
@@ -117,19 +117,13 @@ progress {
 }
 
 #gallery {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  padding: 3rem;
+  padding: 1rem;
+  margin-bottom: 15px;
+  width: 300px;
 }
 
-#gallery img {
-  margin: 10px;
-  max-width: 80vw;
+.gallery-img {
+  width: 100%;
 }
 
 .link-block {
@@ -152,6 +146,20 @@ progress {
 
 .btn.highlight {
   background: #828282;
+}
+
+.back-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  text-decoration: none;
+  font-size: 1rem;
 }
 
 #link {

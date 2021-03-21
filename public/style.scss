@@ -80,12 +80,14 @@ progress {
   img {
     margin: 1rem 0rem;
   }
-  .highlight {
-    background: #dceaff;
-  }
+
   #fileInput {
     display: none;
   }
+}
+
+#dragArea.highlight {
+  background: #dceaff;
 }
 
 .or {
@@ -93,13 +95,12 @@ progress {
 }
 
 #gallery {
-  display: flex;
-  flex-direction: column;
-  padding: 3rem;
-  img {
-    margin: 10px;
-    max-width: 80vw;
-  }
+  padding: 1rem;
+  margin-bottom: 15px;
+  width: 300px;
+}
+.gallery-img {
+  width: 100%;
 }
 
 .link-block {
@@ -113,11 +114,21 @@ progress {
     text-align: center;
     width: 90px;
   }
-  
 }
 
 .btn.highlight {
   background: $gray3;
+}
+
+.back-button{
+  display: flex;
+  justify-content: center;
+  
+  position: absolute;
+  top:3%;
+  left:3%;
+  text-decoration: none;
+  font-size:1rem;
 }
 
 #link {
