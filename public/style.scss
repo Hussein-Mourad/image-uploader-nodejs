@@ -150,3 +150,9 @@ footer {
   bottom: 5%;
   color: $gray3;
 }
+
+@media only screen and (max-width: 425px) {
+  html {
+    font-size: 14px;
+  }
+}

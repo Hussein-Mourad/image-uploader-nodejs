@@ -5,19 +5,4 @@
   <progress id="progress-bar" max="100" value="0"></progress>
 </div>
 
-<script>
-  let progress = document.getElementById("progress-bar");
-  async function incrementProgress() {
-    for (let i = 0; i < 100; i++) {
-      i++;
-      await new Promise((r) => setTimeout(r, 8)); // sleeps for 8ms
-      progress.value = i;
-    }
-  }
-  incrementProgress();
-  setTimeout(() => {
-    location.assign("/results"); // redirects back to results page
-  }, 650);
-
-</script>
 <%- include("./partials/footer.ejs") %> <%- include("./partials/bottom.ejs") %>

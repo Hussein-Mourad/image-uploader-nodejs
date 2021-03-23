@@ -37,6 +37,10 @@ function unhighlight(e) {
 function handleDrop(e) {
   let files = e.dataTransfer.files;
   FileInput.files = files;
+  handleSubmit();
+}
+
+function handleSubmit() {
   form.submit();
 }
 
@@ -63,4 +67,21 @@ function focusOut() {
   var copyBtn = document.getElementById("copy-btn");
   copyBtn.innerText = "Copy link";
   copyBtn.classList.remove("highlight");
+}
+
+// progress bar
+
+let progress = document.getElementById("progress-bar");
+if (progress) {
+  async function incrementProgress() {
+    for (let i = 0; i < 100; i++) {
+      i++;
+      await new Promise((r) => setTimeout(r, 8)); // sleeps for 8ms
+      progress.value = i;
+    }
+  }
+  incrementProgress();
+  setTimeout(() => {
+    location.assign("/results"); // redirects back to results page
+  }, 650);
 }

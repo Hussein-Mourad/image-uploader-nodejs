@@ -1,3 +1,4 @@
+const dotenv = require("dotenv").config();
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -5,9 +6,9 @@ const fs = require("fs");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const multiparty = require("multiparty");
-const dotenv = require("dotenv").config();
-
-const UPLOAD_PATH = path.join(__dirname, process.env.IMG_STORAGE);
+const compression = require("compression");
+ //git.heroku.com/image-uploader1.git
+ https: const UPLOAD_PATH = path.join(__dirname, process.env.IMG_STORAGE);
 const MAX_FILES = process.env.MAX_FILES;
 var filename;
 
@@ -17,11 +18,12 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-// Middleware
+// Middlewares
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression({ level: 4 })); //Compress all routes
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "uploads")));
 
