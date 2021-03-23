@@ -8,7 +8,7 @@
 
 <div align="center">
   <h3>
-    <a href="http://image-uploader1.herokuapp.com/">
+    <a href="http://image-uploader0.herokuapp.com/">
       Demo
     </a>
     <span> | </span>
