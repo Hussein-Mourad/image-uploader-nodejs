@@ -1,7 +1,9 @@
 {
   "name": "image-uploader",
   "version": "0.0.0",
-  "engines": {"node": "v14.15.4"},
+  "engines": {
+    "node": "v14.15.4"
+  },
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
@@ -14,7 +16,9 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
-    "multiparty": "^4.2.2",
-    "uuid": "^8.3.2"
+    "multiparty": "^4.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

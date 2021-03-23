@@ -5,13 +5,11 @@ const fs = require("fs");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const multiparty = require("multiparty");
-const { v4: uuidv4 } = require("uuid");
-const { stringify } = require("querystring");
 const dotenv = require("dotenv").config();
 
 const UPLOAD_PATH = path.join(__dirname, process.env.IMG_STORAGE);
-
 const MAX_FILES = process.env.MAX_FILES;
+var filename;
 
 const app = express();
 
@@ -19,6 +17,7 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// Middleware
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,7 +39,6 @@ app.get("/", function (req, res, next) {
   res.render("index", {
     title: "Image Uploader",
     img_field: process.env.IMG_FIELD,
-    link: "gfhgfdhgfhfghgfhgfhghghgfgfhfghngfhgfhgfhgfhgfhgfhgf",
   });
 });
 
@@ -49,44 +47,36 @@ app.post("/upload", function (req, res, next) {
     maxFilesSize: 10 * 1024 * 1024,
     uploadDir: UPLOAD_PATH,
   }); //10 MB
-  var image;
 
   form.on("error", () => {
     console.log("error");
-  });
-
-  // listen on part event for image file
-  form.on("part", function (part) {
-    if (!part.filename) return;
-    if (part.name !== "image") return part.resume();
-    image = {};
-    image.filename = part.filename;
-    image.size = 0;
-    part.on("data", function (buf) {
-      image.size += buf.length;
-    });
+    createError(400);
   });
 
   // parse the form
   form.parse(req, function (err, fields, files) {
-    const filename = files.image[0].path.replace(UPLOAD_PATH, "");
-    console.log(path.join(req.headers.host, "img/" + filename));
-    res.render("results", {
-      title: "Image Uploader | Results",
-      link: path.join(req.headers.host, "img/" + filename),
-      filename: "/" + filename,
-    });
-    // res.send(id);
-    // res.writeHead(200, { "content-type": "text/plain" });
-    // res.write("received upload:\n\n");
-    // res.end(util.inspect({ fields: fields, files: files }));
+    filename = files.image[0].path.replace(UPLOAD_PATH, "");
+    res.redirect("/uploading");
+  });
+});
+
+app.get("/uploading", function (req, res, next) {
+  res.render("uploading", {
+    title: "Image Uploader | uploading...",
+  });
+});
+
+app.get("/results", function (req, res, next) {
+  res.render("results", {
+    title: "Image Uploader | Results",
+    link: path.join(req.headers.host, "img/" + filename),
+    filename: "/" + filename,
   });
 });
 
 app.get("/img/:id", function (req, res, next) {
   const id = req.params.id;
   const filePath = path.join(UPLOAD_PATH, id);
-  console.log(filePath);
   res.sendFile(filePath);
 });
 

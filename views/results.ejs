@@ -1,5 +1,17 @@
 <%- include("./partials/top.ejs") %>
-<a href="/" class="back-button"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4f4f4f" width="18px" height="18px" style="margin-right: 5px;"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z"/></svg>Back</a>
+<a href="/" class="back-button">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="#4f4f4f"
+    width="18px"
+    height="18px"
+    style="margin-right: 5px"
+  >
+    <path d="M0 0h24v24H0z" fill="none" />
+    <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z" /></svg
+  >Back</a
+>
 <div class="card">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -18,19 +30,20 @@
     <img src="<%= filename %>" alt="img" class="gallery-img" />
   </div>
 
-  <form action="">
-    <div class="link-block">
-      <input
-        type="text"
-        name="link"
-        id="link"
-        value="<%= link %>"
-        readonly
-        onclick="copy()"
-      />
-      <div class="btn" id="copy-btn" onclick="copy()">Copy link</div>
-    </div>
-  </form>
+  <div class="link-block">
+    <input
+      type="text"
+      name="link"
+      id="link"
+      value="<%= link %>"
+      readonly
+      onfocus="copy()"
+      onblur="focusOut()"
+    />
+    <button class="btn" id="copy-btn" onfocus="copy()" onblur="focusOut()">
+      Copy link
+    </button>
+  </div>
 </div>
 
 <%- include("./partials/footer.ejs") %> <%- include("./partials/bottom.ejs") %>

@@ -1,6 +1,6 @@
 <%- include("./partials/top.ejs") %>
 
-<form action="/upload" method="POST" class="form" enctype="multipart/form-data">
+<form action="/upload" method="POST" class="form" enctype="multipart/form-data" onchange="this.submit()">
   <div class="card">
     <h1>Upload your image</h1>
     <p>File should be Jpeg, Png, ...</p>
@@ -10,7 +10,6 @@
         id="fileInput"
         name="<%= img_field %>"
         accept="image/*"
-        onchange="handleFiles(this.files)"
       />
       <img src="/image.svg" alt="mountain" />
       <p>Drag & Drop your image here</p>

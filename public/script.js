@@ -4,20 +4,21 @@ let FileInput = document.getElementById("fileInput");
 let form = document.querySelector("form");
 
 /* Event listeners */
+try {
+  ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+    dragArea.addEventListener(eventName, preventDefaults, false);
+  });
 
-["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-  dragArea.addEventListener(eventName, preventDefaults, false);
-});
+  ["dragenter", "dragover"].forEach((eventName) => {
+    dragArea.addEventListener(eventName, highlight, false);
+  });
 
-["dragenter", "dragover"].forEach((eventName) => {
-  dragArea.addEventListener(eventName, highlight, false);
-});
+  ["dragleave", "drop"].forEach((eventName) => {
+    dragArea.addEventListener(eventName, unhighlight, false);
+  });
 
-["dragleave", "drop"].forEach((eventName) => {
-  dragArea.addEventListener(eventName, unhighlight, false);
-});
-
-dragArea.addEventListener("drop", handleDrop, false);
+  dragArea.addEventListener("drop", handleDrop, false);
+} catch (error) {}
 
 // Helping functions
 function preventDefaults(e) {
@@ -34,14 +35,8 @@ function unhighlight(e) {
 }
 
 function handleDrop(e) {
-  // const dT = new DataTransfer();
-  // dT.items.add(e.dataTransfer.files[0]);
   let files = e.dataTransfer.files;
   FileInput.files = files;
-  handleFiles(files);
-}
-
-function handleFiles(files) {
   form.submit();
 }
 
@@ -56,33 +51,16 @@ function copy() {
 
   /* Copy the text inside the text field */
   document.execCommand("copy");
-  window.getSelection().removeAllRanges();
-  document.getSelection().addRange(document.createRange());
+  window.getSelection().removeAllRanges(); // removes the selection
+  document.getSelection().addRange(document.createRange()); // removes the selection in older browsers
 
   copyBtn.innerText = "Copied!";
   copyBtn.classList.add("highlight");
-  setTimeout(() => {
-    copyBtn.innerText = "Copy link";
-    copyBtn.classList.remove("highlight");
-    copyText.style.userSelect = "text";
-  }, 1000);
 }
 
-// function previewFile(file) {
-//   let reader = new FileReader();
-//   reader.readAsDataURL(file);
-//   reader.onloadend = function () {
-//     let img = document.createElement("img");
-//     img.src = reader.result;
-//     document.getElementById("gallery").appendChild(img);
-//   };
-// }
-
-// function initializeProgress(numfiles) {
-//   progressBar.value = 0;
-// }
-
-// function progressDone() {
-//   filesDone++;
-//   progressBar.value = (filesDone / filesToDo) * 100;
-// }
+// Resets button onblur
+function focusOut() {
+  var copyBtn = document.getElementById("copy-btn");
+  copyBtn.innerText = "Copy link";
+  copyBtn.classList.remove("highlight");
+}
