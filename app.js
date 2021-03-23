@@ -27,15 +27,21 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "uploads")));
 
 app.get("/", function (req, res, next) {
-  fs.readdir(UPLOAD_PATH, (err, files) => {
-    if (files.length > MAX_FILES) {
-      for (file of files) {
-        fs.unlink(path.join(UPLOAD_PATH, file), (err) => {
-          if (err) throw err;
-        });
+  // makes the upload dir if not found
+  if (!fs.existsSync(UPLOAD_PATH)) {
+    fs.mkdirSync(UPLOAD_PATH);
+  } else {
+    // removes old files inorder not ot flood the server
+    fs.readdir(UPLOAD_PATH, (err, files) => {
+      if (files.length > MAX_FILES) {
+        for (file of files) {
+          fs.unlink(path.join(UPLOAD_PATH, file), (err) => {
+            if (err) throw err;
+          });
+        }
       }
-    }
-  });
+    });
+  }
 
   res.render("index", {
     title: "Image Uploader",
