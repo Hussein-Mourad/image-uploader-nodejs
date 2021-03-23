@@ -7,8 +7,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const multiparty = require("multiparty");
 const compression = require("compression");
- //git.heroku.com/image-uploader1.git
- https: const UPLOAD_PATH = path.join(__dirname, process.env.IMG_STORAGE);
+const UPLOAD_PATH = path.join(__dirname, process.env.IMG_STORAGE);
 const MAX_FILES = process.env.MAX_FILES;
 var filename;
 
