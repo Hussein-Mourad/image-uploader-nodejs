@@ -66,12 +66,6 @@ app.post("/upload", function (req, res, next) {
   });
 });
 
-app.get("/uploading", function (req, res, next) {
-  res.render("uploading", {
-    title: "Image Uploader | uploading...",
-  });
-});
-
 app.get("/results", function (req, res, next) {
   res.render("results", {
     title: "Image Uploader | Results",
