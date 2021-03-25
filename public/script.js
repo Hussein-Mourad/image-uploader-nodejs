@@ -1,7 +1,9 @@
-let progressBar = document.getElementById("progress-bar");
 let dragArea = document.getElementById("dragArea");
 let FileInput = document.getElementById("fileInput");
 let form = document.querySelector("form");
+let progressBar = document.getElementById("progress-bar");
+let loading = document.querySelector("#loading");
+let error = document.querySelector("#error");
 
 /* Event listeners */
 try {
@@ -34,16 +36,43 @@ function unhighlight(e) {
   dragArea.classList.remove("highlight");
 }
 
+// Gets the files when dropped and handles the request
 function handleDrop(e) {
   let files = e.dataTransfer.files;
   FileInput.files = files;
-  handleSubmit();
+  handleSubmit(files);
 }
 
-function handleSubmit() {
-  form.submit();
+// Send the request
+function handleSubmit(files) {
+  // Show loading screen
+  loading.style.display = "flex";
+  form.style.display = "none";
+
+  var xhr = new XMLHttpRequest();
+  var formData = new FormData();
+  xhr.open("POST", "/upload", true);
+
+  // Add following event listener
+  xhr.upload.addEventListener("progress", function (e) {
+    progressBar.value = (e.loaded / e.total) * 100 || 0;
+  });
+
+  xhr.addEventListener("readystatechange", function (e) {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      location.assign("/results");
+    } else if (xhr.readyState == 4 && xhr.status != 200) {
+      loading.style.display = "none";
+      error.style.display = "flex";
+      error.innerText = e.currentTarget.responseText;
+    }
+  });
+
+  formData.append("image", files[0]);
+  xhr.send(formData);
 }
 
+// Copies the text of the input field
 function copy() {
   /* Get the text field */
   var copyText = document.getElementById("link");
@@ -67,21 +96,4 @@ function focusOut() {
   var copyBtn = document.getElementById("copy-btn");
   copyBtn.innerText = "Copy link";
   copyBtn.classList.remove("highlight");
-}
-
-// progress bar
-
-let progress = document.getElementById("progress-bar");
-if (progress) {
-  async function incrementProgress() {
-    for (let i = 0; i < 100; i++) {
-      i++;
-      await new Promise((r) => setTimeout(r, 8)); // sleeps for 8ms
-      progress.value = i;
-    }
-  }
-  incrementProgress();
-  setTimeout(() => {
-    location.assign("/results"); // redirects back to results page
-  }, 650);
 }

@@ -29,6 +29,15 @@ progress {
   width: 200px;
 }
 
+#loading,
+#error {
+  display: none;
+}
+#error {
+  font-weight: 600;
+  color: #DC2626;
+}
+
 .btn {
   padding: 0.6rem 0.8rem;
   cursor: pointer;

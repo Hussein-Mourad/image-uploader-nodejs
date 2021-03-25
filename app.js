@@ -45,7 +45,6 @@ app.get("/", function (req, res, next) {
 
   res.render("index", {
     title: "Image Uploader",
-    img_field: process.env.IMG_FIELD,
   });
 });
 
@@ -55,15 +54,15 @@ app.post("/upload", function (req, res, next) {
     uploadDir: UPLOAD_PATH,
   }); //10 MB
 
-  form.on("error", () => {
-    console.log("error");
-    createError(400);
+  form.on("error", (err) => {
+    res
+      .status(400)
+      .send("Error! the file size is too large (Maximum file size is 10MB)");
   });
 
-  // parse the form
   form.parse(req, function (err, fields, files) {
     filename = files.image[0].path.replace(UPLOAD_PATH, "");
-    res.redirect("/uploading");
+    res.send("Success");
   });
 });
 
