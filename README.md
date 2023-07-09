@@ -67,6 +67,9 @@ $ git clone https://github.com/Hussein-Mourad/devchallenges
 # Change Directory
 cd Fullstack/image-uploader
 
+# Set Required Enviromnet variables
+cp env-example .env
+
 # Install dependencies
 $ npm install
 
