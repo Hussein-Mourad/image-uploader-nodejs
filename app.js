@@ -70,7 +70,7 @@ app.get("/results", function (req, res, next) {
   res.render("results", {
     title: "Image Uploader | Results",
     link: path.join(req.headers.host, "img/" + filename),
-    filename: "/" + filename,
+    filename: "img" + filename,
   });
 });
 
