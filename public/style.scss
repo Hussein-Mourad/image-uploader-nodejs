@@ -1,0 +1,167 @@
+$gray1: #bdbdbd;
+$gray2: #4f4f4f;
+$gray3: #828282;
+$gray4: #f6f8fb;
+$gray5: #333333;
+$blue: #2f80ed;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: $gray2;
+}
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+progress {
+  width: 200px;
+}
+
+#loading,
+#error {
+  display: none;
+}
+#error {
+  font-weight: 600;
+  color: #DC2626;
+}
+
+.btn {
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+  color: white;
+  background-color: $blue;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0px 3px 10px $gray1;
+}
+
+.btn:hover {
+  opacity: 90%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem 1rem;
+  box-shadow: 0px 10px 15px rgb(202, 202, 202);
+  color: $gray3;
+
+  h1 {
+    color: $gray2;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+}
+
+#dragArea {
+  margin: 2rem 0.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  border: 2px dashed #97bef4;
+  border-radius: 0.5rem;
+  background: #f6f8fb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 18rem;
+  p {
+    margin-bottom: 1rem;
+  }
+  img {
+    margin: 1rem 0rem;
+  }
+
+  #fileInput {
+    display: none;
+  }
+}
+
+#dragArea.highlight {
+  background: #dceaff;
+}
+
+.or {
+  margin-bottom: 1rem;
+}
+
+#gallery {
+  padding: 1rem;
+  margin-bottom: 15px;
+  width: 300px;
+}
+.gallery-img {
+  width: 100%;
+}
+
+.link-block {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid $gray1;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  background: $gray4;
+  .btn {
+    text-align: center;
+    width: 90px;
+  }
+}
+
+.btn.highlight {
+  background: $gray3;
+}
+
+.back-button {
+  display: flex;
+  justify-content: center;
+
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+#link {
+  border: none;
+  background: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#link:focus {
+  outline: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 5%;
+  color: $gray3;
+}
+
+@media only screen and (max-width: 425px) {
+  html {
+    font-size: 14px;
+  }
+}

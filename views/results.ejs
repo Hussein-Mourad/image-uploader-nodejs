@@ -1,0 +1,49 @@
+<%- include("./partials/top.ejs") %>
+<a href="/" class="back-button">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="#4f4f4f"
+    width="18px"
+    height="18px"
+    style="margin-right: 5px"
+  >
+    <path d="M0 0h24v24H0z" fill="none" />
+    <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z" /></svg
+  >Back</a
+>
+<div class="card">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="green"
+    width="32px"
+    height="32px"
+  >
+    <path d="M0 0h24v24H0V0z" fill="none" />
+    <path
+      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.29 16.29L5.7 12.7c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L10 14.17l6.88-6.88c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-7.59 7.59c-.38.39-1.02.39-1.41 0z"
+    />
+  </svg>
+  <h1>Uploaded Successfully!</h1>
+  <div id="gallery">
+    <img src="<%= filename %>" alt="img" class="gallery-img" />
+  </div>
+
+  <div class="link-block">
+    <input
+      type="text"
+      name="link"
+      id="link"
+      value="<%= link %>"
+      readonly
+      onfocus="copy()"
+      onblur="focusOut()"
+    />
+    <button class="btn" id="copy-btn" onfocus="copy()" onblur="focusOut()">
+      Copy link
+    </button>
+  </div>
+</div>
+
+<%- include("./partials/footer.ejs") %> <%- include("./partials/bottom.ejs") %>
